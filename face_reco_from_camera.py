@@ -195,7 +195,7 @@ class Face_Recognizer:
     # OpenCV process
     def run(self):
         # cap = cv2.VideoCapture("video.mp4")  # Get video stream from video file
-        cap = cv2.VideoCapture(0)              # Get video stream from camera
+        cap = cv2.VideoCapture(1)              # Get video stream from camera
         cap.set(3, 480)                        # 640x480
         self.process(cap)
 
