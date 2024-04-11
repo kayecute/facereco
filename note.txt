@@ -1,0 +1,12 @@
+python get_faces_from_camera_tkinter.py
+# nhập dữ liệu bằng cách chụp ảnh từng phần
+python get_face_from_camera.py
+# truy xuẩt dữ liệu 
+python features_extraction_to_csv.py
+# lưu trữ dữ liệu theo tên
+python face_reco_from_camera.py
+# nhận diện trực tiếp nhiều người (khá là chậm là lag)
+python face_reco_from_camera_single_face.py
+# nhận diện trực tiếp 1 người, ưu tiên gần nhất
+python face_reco_from_camera_ot.py
+# nhận diện nhiều người nhưng tốt hơn face_reco_from_camera.py
