@@ -1,0 +1,2 @@
+*.dat !text !filter !merge !diff
+*.pyd !text !filter !merge !diff
