@@ -13,7 +13,7 @@ from PIL import Image, ImageTk
 # import torch.backends.cudnn as cudnn
 # Dlib Use frontal face detector of Dlib
 # from face_recognition import face_locations
-import torch
+# import torch
 # dlib.DLIB_USE_CUDA = True
 # cudnn.benchmark = True
 detector = dlib.get_frontal_face_detector()

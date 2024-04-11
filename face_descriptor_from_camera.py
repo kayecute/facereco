@@ -21,7 +21,7 @@ class Face_Descriptor:
         self.frame_start_time = now
 
     def run(self):
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(1)
         cap.set(3, 480)
         self.process(cap)
         cap.release()
