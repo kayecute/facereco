@@ -14,9 +14,14 @@ python face_reco_from_camera_ot.py
 
 
 ++++++++++++++++++++++++++++++++++++++++++++++
- gỡ bỏ FLS
+gỡ bỏ FLS
     git lfs migrate export --include="*.dat,*.pyd" --everything
     java -jar bfg.jar --strip-blobs-bigger-than 50M
-   
-   
-   
+
+Cài dlib
+# pip install data\data_dlib\dlib-19.22.99-cp38-cp38-win_amd64.whl
+# pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121  // use when your GPU strong enough
+
+Nếu lỗi trong quá trình commit 
+    git rebase
+    git pull origin main --allow-unrelated-histories
