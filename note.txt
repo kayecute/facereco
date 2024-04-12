@@ -10,3 +10,13 @@ python face_reco_from_camera_single_face.py
 # nhận diện trực tiếp 1 người, ưu tiên gần nhất
 python face_reco_from_camera_ot.py
 # nhận diện nhiều người nhưng tốt hơn face_reco_from_camera.py
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++
+ gỡ bỏ FLS
+    git lfs migrate export --include="*.dat,*.pyd" --everything
+    java -jar bfg.jar --strip-blobs-bigger-than 50M
+   
+   
+   
