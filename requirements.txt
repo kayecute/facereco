@@ -3,5 +3,5 @@ numpy==1.22.0
 scikit-image==0.18.3
 pandas==1.3.4
 opencv-python==4.5.4.58
-#./data/data_dlib/dlib-19.22.99-cp38-cp38-win_amd64.whl 
-# --force-reinstall
+#./data/data_dlib/dlib-19.22.99-cp38-cp38-win_amd64.whl  // for run on windows
+# --force-reinstall // if you can find dlib after install
