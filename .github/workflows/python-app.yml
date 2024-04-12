@@ -41,5 +41,5 @@ jobs:
 
     - name: Run pytest with Xvfb
       #run: DISPLAY=:99 pytest ./tests
-      run: DISPLAY=:99 pytest ../app
+      run: DISPLAY=:99 pytest ../app.py
   
