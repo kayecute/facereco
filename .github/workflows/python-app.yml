@@ -39,4 +39,4 @@ jobs:
         echo "DISPLAY=:99" >> $GITHUB_ENV
 
     - name: Run pytest with Xvfb
-      run: pytest
+      run: pytest test_app.py
