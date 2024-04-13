@@ -1,3 +1,4 @@
 {
-  "test.py::TestOnClosing::test_on_closing_exit_true": true
+  "test.py::TestOnClosing::test_on_closing_exit_true": true,
+  "test_app.py::test_on_closing": true
 }

@@ -1,4 +1,6 @@
 [
   "test.py::TestOnClosing::test_on_closing_exit_false",
-  "test.py::TestOnClosing::test_on_closing_exit_true"
+  "test.py::TestOnClosing::test_on_closing_exit_true",
+  "test_app.py::test_on_closing",
+  "test_app.py::test_run_script"
 ]
