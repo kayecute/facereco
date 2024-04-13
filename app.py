@@ -6,6 +6,12 @@ def on_closing():
     if messagebox.askokcancel("Exit", "Do you want to exit?"):
         root.destroy()
 
+# Hàm mới để kết thúc chương trình sau một thời gian định trước
+def auto_exit():
+    if messagebox.askokcancel("Auto Exit", "The app will now exit after running for 5 minutes."):
+        root.destroy()
+
+
 root = tk.Tk()
 root.title('GUI for Face Recognition')
 root.geometry('1300x550')
@@ -56,6 +62,8 @@ face_reco_single_button.pack(side='left', padx=10)
 
 face_reco_single_button = tk.Button(button_frame, text='Better Face Recognition from Camera (Single Face)', command=face_reco_from_camera_ot)
 face_reco_single_button.pack(side='left', padx=10)
+
+root.after(300000, auto_exit)
 
 root.protocol("WM_DELETE_WINDOW", on_closing)
 root.mainloop()
