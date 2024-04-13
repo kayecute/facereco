@@ -6,7 +6,6 @@ def on_closing():
     if messagebox.askokcancel("Exit", "Do you want to exit?"):
         root.destroy()
 
-# Hàm mới để kết thúc chương trình sau một thời gian định trước
 def auto_exit():
     if messagebox.askokcancel("Auto Exit", "The app will now exit after running for 5 minutes."):
         root.destroy()

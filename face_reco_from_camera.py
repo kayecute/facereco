@@ -102,14 +102,6 @@ class Face_Recognizer:
             img_rd = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
         return img_rd
 
-    #  Show names in chinese
-    def show_chinese_name(self):
-        # Default known name: person_1, person_2, person_3
-        if self.current_frame_face_cnt >= 1:
-            #Modify names in face_name_known_list to chinese name
-            self.face_name_known_list[0] = '张三'.encode('utf-8').decode()
-            # self.face_name_known_list[1] = '   '.encode('utf-8').decode()
-
     # Face detection and recognition from input video stream
     def process(self, stream):
         # 1.  Read known faces from "features.all.csv"
@@ -174,10 +166,6 @@ class Face_Recognizer:
                                               (255, 255, 255), 2)
 
                         self.current_frame_face_cnt = len(faces)
-
-                        # 7.  Modify name if needed
-                        # self.show_chinese_name()
-
                         # 8.Draw name
                         img_with_name = self.draw_name(img_rd)
 
