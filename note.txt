@@ -1,6 +1,5 @@
+# GUI chụp ảnh
 python get_faces_from_camera_tkinter.py
-# nhập dữ liệu bằng cách chụp ảnh từng phần
-python get_face_from_camera.py
 # truy xuẩt dữ liệu 
 python features_extraction_to_csv.py
 # lưu trữ dữ liệu theo tên
@@ -12,7 +11,8 @@ python face_reco_from_camera_ot.py
 # nhận diện nhiều người nhưng tốt hơn face_reco_from_camera.py
 
 
-
+# nhập dữ liệu bằng cách chụp ảnh từng phần
+#python get_face_from_camera.py
 ++++++++++++++++++++++++++++++++++++++++++++++
 gỡ bỏ FLS
     git lfs migrate export --include="*.dat,*.pyd" --everything
