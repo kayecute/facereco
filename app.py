@@ -8,9 +8,8 @@ def on_closing():
 
 root = tk.Tk()
 root.title('GUI for Face Recognition')
-root.geometry('1300x550')  # Đặt kích thước cho cửa sổ chính
+root.geometry('1300x550')
 
-# Cấu hình cửa sổ chính để xuất hiện ở giữa màn hình
 window_width = 1300
 window_height = 550
 screen_width = root.winfo_screenwidth()
@@ -37,8 +36,6 @@ def face_reco_from_camera_single_face():
 def face_reco_from_camera_ot():
     os.system('python face_reco_from_camera_ot.py')
 
-# root = tk.Tk()
-# root.title('GUI for Face Recognition')
 main_frame = tk.Frame(root)
 main_frame.pack(pady=20)
 
@@ -59,5 +56,6 @@ face_reco_single_button.pack(side='left', padx=10)
 
 face_reco_single_button = tk.Button(button_frame, text='Better Face Recognition from Camera (Single Face)', command=face_reco_from_camera_ot)
 face_reco_single_button.pack(side='left', padx=10)
+
 root.protocol("WM_DELETE_WINDOW", on_closing)
 root.mainloop()
