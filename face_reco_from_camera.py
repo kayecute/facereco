@@ -8,37 +8,28 @@ import os
 import time
 import logging
 from PIL import Image, ImageDraw, ImageFont
-
 # Use frontal face detector of Dlib
 detector = dlib.get_frontal_face_detector()
-
 #Get face landmarks
 predictor = dlib.shape_predictor('data/data_dlib/shape_predictor_68_face_landmarks.dat')
-
 #Use Dlib resnet50 model to get 128D face descriptor
 face_reco_model = dlib.face_recognition_model_v1("data/data_dlib/dlib_face_recognition_resnet_model_v1.dat")
-
-
 class Face_Recognizer:
     def __init__(self):
         self.face_feature_known_list = []                #  Save the features of faces in database
         self.face_name_known_list = []                   # Save the name of faces in database
-
         self.current_frame_face_cnt = 0                     #  Counter for faces in current frame
         self.current_frame_face_feature_list = []           #  Features of faces in current frame
         self.current_frame_face_name_list = []              #  Names of faces in current frame
         self.current_frame_face_name_position_list = []     # Positions of faces in current frame
-
         # Update FPS
         self.fps = 0                    # FPS of current frame
         self.fps_show = 0               # FPS per second
         self.frame_start_time = 0
         self.frame_cnt = 0
         self.start_time = time.time()
-
         self.font = cv2.FONT_ITALIC
         self.font_chinese = ImageFont.truetype("simsun.ttc", 30)
-
     #  Read known faces from "features_all.csv"
     def get_face_database(self):
         if os.path.exists("data/features_all.csv"):
@@ -60,7 +51,6 @@ class Face_Recognizer:
             logging.warning("Please run 'get_faces_from_camera.py' "
                             "and 'features_extraction_to_csv.py' before 'face_reco_from_camera.py'")
             return 0
-
     #  Compute the e-distance between two 128D features
     @staticmethod
     def return_euclidean_distance(feature_1, feature_2):
@@ -68,7 +58,6 @@ class Face_Recognizer:
         feature_2 = np.array(feature_2)
         dist = np.sqrt(np.sum(np.square(feature_1 - feature_2)))
         return dist
-
     #  Update FPS of Video stream
     def update_fps(self):
         now = time.time()
@@ -79,7 +68,6 @@ class Face_Recognizer:
         self.frame_time = now - self.frame_start_time
         self.fps = 1.0 / self.frame_time
         self.frame_start_time = now
-
     #  PutText on cv2 window
     def draw_note(self, img_rd):
         cv2.putText(img_rd, "Face Recognizer", (20, 40), self.font, 1, (255, 255, 255), 1, cv2.LINE_AA)
@@ -90,7 +78,6 @@ class Face_Recognizer:
         cv2.putText(img_rd, "Faces:  " + str(self.current_frame_face_cnt), (20, 160), self.font, 0.8, (0, 255, 0), 1,
                     cv2.LINE_AA)
         cv2.putText(img_rd, "Q: Quit", (20, 450), self.font, 0.8, (255, 255, 255), 1, cv2.LINE_AA)
-
     def draw_name(self, img_rd):
         #  Write names under rectangle
         img = Image.fromarray(cv2.cvtColor(img_rd, cv2.COLOR_BGR2RGB))
@@ -101,7 +88,6 @@ class Face_Recognizer:
                   fill=(255, 255, 0))
             img_rd = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
         return img_rd
-
     # Face detection and recognition from input video stream
     def process(self, stream):
         # 1.  Read known faces from "features.all.csv"
@@ -121,7 +107,6 @@ class Face_Recognizer:
                     self.current_frame_face_cnt = 0
                     self.current_frame_face_name_position_list = []
                     self.current_frame_face_name_list = []
-
                     # 2.  Face detected in current frame
                     if len(faces) != 0:
                         # 3.Compute the face descriptors for faces in current frame
@@ -133,11 +118,9 @@ class Face_Recognizer:
                             logging.debug("For face %d in camera:", k+1)
                             # Set the default names of faces with "unknown"
                             self.current_frame_face_name_list.append("unknown")
-
                             # Positions of faces captured
                             self.current_frame_face_name_position_list.append(tuple(
                                 [faces[k].left(), int(faces[k].bottom() + (faces[k].bottom() - faces[k].top()) / 4)]))
-
                             # 5.
                             # For every faces detected, compare the faces in the database
                             current_frame_e_distance_list = []
@@ -159,44 +142,32 @@ class Face_Recognizer:
                             else:
                                 logging.debug("Face recognition result: Unknown person")
                             logging.debug("\n")
-
                             #Draw rectangle
                             for kk, d in enumerate(faces):
                                 cv2.rectangle(img_rd, tuple([d.left(), d.top()]), tuple([d.right(), d.bottom()]),
                                               (255, 255, 255), 2)
-
                         self.current_frame_face_cnt = len(faces)
                         # 8.Draw name
                         img_with_name = self.draw_name(img_rd)
-
                     else:
                         img_with_name = img_rd
-
                 logging.debug("Faces in camera now: %s", self.current_frame_face_name_list)
-
                 cv2.imshow("camera", img_with_name)
-
                 # 9. Update stream FPS
                 self.update_fps()
                 logging.debug("Frame ends\n\n")
-
     # OpenCV process
     def run(self):
         # cap = cv2.VideoCapture("video.mp4")  # Get video stream from video file
         cap = cv2.VideoCapture(1)              # Get video stream from camera
         cap.set(3, 480)                        # 640x480
         self.process(cap)
-
         cap.release()
         cv2.destroyAllWindows()
-
-
 def main():
     # logging.basicConfig(level=logging.DEBUG) # Set log level to 'logging.DEBUG' to print debug info of every frame
     logging.basicConfig(level=logging.INFO)
     Face_Recognizer_con = Face_Recognizer()
     Face_Recognizer_con.run()
-
-
 if __name__ == '__main__':
     main()
