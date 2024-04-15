@@ -1,7 +1,7 @@
 import tkinter as tk
 import tkinter.messagebox as messagebox
 import os
-
+root = None
 # Định nghĩa hàm gọi khi thoát ứng dụng
 def on_closing():
     if messagebox.askokcancel("Exit", "Do you want to exit?"):
@@ -94,6 +94,5 @@ def main():
 def run_script(script_name):
     os.system(f"python {script_name}")
 
-# Chỉ chạy sự kiện mainloop khi script được chạy trực tiếp, không phải khi import
-if __name__ == '__main__':
+if __name__ == '__main__': # Đảm bảo rằng đây là __name__ không phải name
     main()

@@ -1,39 +1,53 @@
-# filename: test_app.py
+# test_app.py
 import os
-import pytest
 from unittest import mock
+import pytest
 import tkinter as tk
-import app  # Sửa tên module nếu cần
+import app  # Giả sử tất cả các hàm được test đều trong file này
 
-# Mock os.system để không thực sự chạy các lệnh shell trong test cases
-@mock.patch('os.system', mock.MagicMock())
-def test_get_faces_from_camera_tkinter():
+# Ghi chú: Bạn cần đảm bảo rằng app.py chứa các hàm được test.
+# Ví dụ:
+# def get_faces_from_camera_tkinter():
+#     os.system('python get_faces_from_camera_tkinter.py')
+# ...
+
+# Sử dụng mock.patch như decorator để thay thế os.system trong môi trường test
+@mock.patch('os.system')
+def test_get_faces_from_camera_tkinter(mocked_system):
     app.get_faces_from_camera_tkinter()
-    os.system.assert_called_with('python get_faces_from_camera_tkinter.py')
+    mocked_system.assert_called_with('python get_faces_from_camera_tkinter.py')
 
-# Lặp lại tương tự cho mỗi hàm mà bạn muốn test
-@mock.patch('os.system', mock.MagicMock())
-def test_features_extraction_to_csv():
+@mock.patch('os.system')
+def test_features_extraction_to_csv(mocked_system):
     app.features_extraction_to_csv()
-    os.system.assert_called_with('python features_extraction_to_csv.py')
+    mocked_system.assert_called_with('python features_extraction_to_csv.py')
 
-@mock.patch('os.system', mock.MagicMock())
-def test_face_reco_from_camera():
+@mock.patch('os.system')
+def test_face_reco_from_camera(mocked_system):
     app.face_reco_from_camera()
-    os.system.assert_called_with('python face_reco_from_camera.py')
+    mocked_system.assert_called_with('python face_reco_from_camera.py')
 
-@mock.patch('os.system', mock.MagicMock())
-def test_face_reco_from_camera_single_face():
+@mock.patch('os.system')
+def test_face_reco_from_camera_single_face(mocked_system):
     app.face_reco_from_camera_single_face()
-    os.system.assert_called_with('python face_reco_from_camera_single_face.py')
+    mocked_system.assert_called_with('python face_reco_from_camera_single_face.py')
 
-@mock.patch('os.system', mock.MagicMock())
-def test_face_reco_from_camera_ot():
+@mock.patch('os.system')
+def test_face_reco_from_camera_ot(mocked_system):
     app.face_reco_from_camera_ot()
-    os.system.assert_called_with('python face_reco_from_camera_ot.py')
+    mocked_system.assert_called_with('python face_reco_from_camera_ot.py')
 
-# Mock messagebox để trả về True khi nó được gọi, như vậy có thể test phần thoát chương trình
+# Đối với việc test hàm on_closing, bạn cần mock tkinter.messagebox.askokcancel
+# và cũng cần chắc chắn rằng 'root' được handle đúng cách trong app.py
 @mock.patch('tkinter.messagebox.askokcancel', return_value=True)
-def test_on_closing(exit_mock):
+@mock.patch('app.root', create=True)  # Mock 'root' nếu cần thiết
+def test_on_closing(mocked_askokcancel, mocked_root):
     app.on_closing()
-    exit_mock.assert_called_once_with("Exit", "Do you want to exit?")
+    mocked_askokcancel.assert_called_once_with("Exit", "Do you want to exit?")
+    # Kiểm tra xem các method của 'root' đã được gọi chưa, ví dụ:
+    assert mocked_root.quit.called
+    assert mocked_root.destroy.called
+
+# Chạy tất cả tests với pytest
+if __name__ == "__main__":
+    pytest.main()
