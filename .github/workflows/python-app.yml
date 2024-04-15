@@ -45,7 +45,8 @@ jobs:
       run: pytest 
 
     # Use if you want to run your application with Python
-    - name: Run Python application 
-      run: python app.py
-    # - name: Run Python application with Xvfb support
-    #   run: xvfb-run --auto-servernum python app.py
+      # - name: Run Python application 
+      #   run: python app.py 
+    - name: Run Python application with Xvfb support 
+      run: xvfb-run --auto-servernum python app.py
+

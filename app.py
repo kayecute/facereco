@@ -2,18 +2,19 @@ import tkinter as tk
 import tkinter.messagebox as messagebox
 import os
 
+# Định nghĩa hàm gọi khi thoát ứng dụng
 def on_closing():
     if messagebox.askokcancel("Exit", "Do you want to exit?"):
         root.destroy()
-
 def auto_exit():
     if messagebox.askokcancel("Auto Exit", "The app will now exit after running for 5 minutes."):
         root.destroy()
-
-
+# Khởi tạo Tkinter root instance
 root = tk.Tk()
+# Đặt tiêu đề và kích thước cửa sổ
 root.title('GUI for Face Recognition')
 root.geometry('1300x550')
+root.protocol("WM_DELETE_WINDOW", on_closing)
 
 window_width = 1300
 window_height = 550
