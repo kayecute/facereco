@@ -25,3 +25,10 @@ Cài dlib
 Nếu lỗi trong quá trình commit 
     git rebase
     git pull origin main --allow-unrelated-histories
+
+Docker :
+    docker build -t ten_cua_image .
+    docker run -d –p 8090:80 facecreco 
+
+    docker tag facereco kayehaerdir/facereco:1v1
+    docker push kayehaerdir/facereco:1v1

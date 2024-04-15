@@ -1,23 +1,23 @@
-# Sử dụng một base image có sẵn
-FROM ubuntu:20.04
+# Sử dụng một base image
+FROM python:3.8.13
 
-# Thiết lập thông tin tác giả
-LABEL maintainer="drneetotaku@gmail.com>"
-
-# Cài đặt các dependencies và ứng dụng cần thiết
-RUN apt-get update && apt-get install -y \
-    nginx \
-    python \
-    && rm -rf /var/lib/apt/lists/*
-
-# Thiết lập môi trường làm việc
+# Thiết lập thư mục làm việc
 WORKDIR /app
 
-# Sao chép mã nguồn ứng dụng vào container
-COPY . .
+# Copy các file cần thiết vào container
+COPY . /app
 
-# Mở cổng mặc định cho ứng dụng (nếu cần)
+# Nâng cấp pip và cài đặt các dependencies cần thiết để chạy tkinter app
+RUN pip install --upgrade pip && \
+    apt-get update && \
+    apt-get install -y cmake xvfb x11vnc && \
+    pip install -r requirements.txt
+
+# Mở port (ví dụ port 80)
 EXPOSE 80
 
-# Chạy ứng dụng khi container được khởi chạy
-CMD ["python", "app.py"]
+# Set up Xvfb và run tkinter app
+CMD Xvfb :99 -screen 0 1024x768x24 -ac +extension GLX +render -noreset & \
+    export DISPLAY=:99 && \
+    x11vnc -display :99 -usepw -forever -create & \
+    python app.py
