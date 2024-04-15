@@ -1,6 +1,7 @@
 import tkinter as tk
 import tkinter.messagebox as messagebox
 import os
+import face_descriptor_from_camera,face_reco_from_camera,face_reco_from_camera_single_face,face_reco_from_camera_ot,get_faces_from_camera,get_faces_from_camera_tkinter,features_extraction_to_csv,features_extraction_to_csv
 root = None
 # Định nghĩa hàm gọi khi thoát ứng dụng
 def on_closing():
@@ -18,7 +19,6 @@ def auto_exit():
             root.destroy()
         except tk.TclError as e:
             print("Window already closed:", e)
-
 
 def main():
     global root
